@@ -105,7 +105,16 @@ function checkAnswer(currentLevel) {
             $("body").removeClass("game-over");
         }, 200);
         $("h1").text("Game Over, Press Any Key to Restart");
+        startOver(); // restart game
     }
+}
+
+function startOver(){
+level=0;
+gamePattern=[];
+check=false;
+
+
 }
 
 
