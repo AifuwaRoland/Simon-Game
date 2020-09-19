@@ -83,23 +83,29 @@ function animatePress(currentColour) {
 }
 function checkAnswer(currentLevel) {
     //game logic 
-if(gamePattern[currentLevel]== userClickedPattern[currentLevel]){
-    console.log("success");
-} 
+    if (gamePattern[currentLevel] == userClickedPattern[currentLevel]) {
+        console.log("success");
+    }
 
-if (userClickedPattern.length === gamePattern.length){
+    if (userClickedPattern.length === gamePattern.length) {
 
-    //5. Call nextSequence() after a 1000 millisecond delay.
-    setTimeout(function () {
-      nextSequence();
-    }, 1000);
+        //5. Call nextSequence() after a 1000 millisecond delay.
+        setTimeout(function () {
+            nextSequence();
+        }, 1000);
 
-  }
-  else{
-    console.log("wrong");
-    var wrong = new Audio('sounds/wrong.mp3');
-            wrong.play();
-}
+    }
+    else {
+        console.log("wrong");
+        var wrong = new Audio('sounds/wrong.mp3');
+        wrong.play();
+        //  activeBut.addClass("pressed");
+        $("body").addClass("game-over");
+        setTimeout(function () {
+            $("body").removeClass("game-over");
+        }, 200);
+        $("h1").text("Game Over, Press Any Key to Restart");
+    }
 }
 
 
