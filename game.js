@@ -1,14 +1,23 @@
 var gamePattern = [];
 var userClickedPattern = [];
+var level = 0; //keep track of the level
+var check = false;
 
 //check when keyboard is pressed
 $(document).on('keypress', function () {
+    check = true;
+
     nextSequence();
 
 });
 
 
 function nextSequence() {
+
+    level++;
+    if (check) {
+        $("h1").text("Level" + " " + level);
+    }
     var randomNum = Math.floor((Math.random() * 4) + 1);
     var buttonColours = ["red", "blue", "green", "yellow"];
     var randomCol = buttonColours[randomNum];
@@ -52,10 +61,11 @@ function handler() {
         var userChosenColour = this.id;
 
         userClickedPattern.push(userChosenColour);
-        console.log(userClickedPattern);
+        // console.log(userClickedPattern);
         toMakeSound("#" + userChosenColour);
-        animatePress(userChosenColour)
+        animatePress(userChosenColour);
 
+        checkAnswer(userClickedPattern.length - 1);
 
     });
 
@@ -70,6 +80,26 @@ function animatePress(currentColour) {
     setTimeout(function () {
         $(activeBut).removeClass("pressed");
     }, 100);
+}
+function checkAnswer(currentLevel) {
+    //game logic 
+if(gamePattern[currentLevel]== userClickedPattern[currentLevel]){
+    console.log("success");
+} 
+
+if (userClickedPattern.length === gamePattern.length){
+
+    //5. Call nextSequence() after a 1000 millisecond delay.
+    setTimeout(function () {
+      nextSequence();
+    }, 1000);
+
+  }
+  else{
+    console.log("wrong");
+    var wrong = new Audio('sounds/wrong.mp3');
+            wrong.play();
+}
 }
 
 
